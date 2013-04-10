@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" version="3.0">
+  <servlet>
+    <servlet-name>File</servlet-name>
+    <servlet-class>servlet.FileController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>File</servlet-name>
+    <url-pattern>/File</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>Runtime</servlet-name>
+    <servlet-class>servlet.RuntimeController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Runtime</servlet-name>
+    <url-pattern>/Runtime</url-pattern>
+  </servlet-mapping>
+  <session-config>
+    <session-timeout>30</session-timeout>
+  </session-config>
+</web-app>
