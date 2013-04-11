@@ -12,6 +12,7 @@ $(function() {
 			var formMsgDom = $(formDom).find('.formMessage');
 			$(formMsgDom).children('*').addClass('hidden');
 			$(formMsgDom).children('.loadingIcon').removeClass('hidden');
+			$(formMsgDom).find('input[type="submit"]').prop('disabled', true);
 		}
 
 		// Show message from server.
@@ -20,12 +21,14 @@ $(function() {
 			
 			$(formMsgDom).children('*').removeClass('hidden');
 			$(formMsgDom).children('.loadingIcon').addClass('hidden');
+			
 			$(formMsgDom).children('.formMessageText').text(data.message);
+			$(formMsgDom).find('input[type="submit"]').prop('disabled', false);
 			
 			if(data.isSuccess){
 				$(formMsgDom).css({color:"green"});
 				$(formMsgDom).children('.icon-remove-sign').addClass('hidden');
-			} else{
+			} else {
 				$(formMsgDom).css({color:"red"});
 				$(formMsgDom).children('.icon-ok-sign').addClass('hidden');
 			}						
@@ -43,7 +46,8 @@ $(function() {
 						window.location.replace('CodeEditor');
 					}, 1000);
 				}
-			}
+			},
+			dataType: 'json'
 		});
 
 		$(login.registerForm).ajaxForm({
@@ -58,7 +62,8 @@ $(function() {
 						window.location.replace('Login');
 					}, 1000);
 				}							
-			}
+			},
+			dataType: 'json'
 		});
 
 		return login;

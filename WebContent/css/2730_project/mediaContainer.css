@@ -1,0 +1,144 @@
+﻿/* Whole Container */
+
+#mediaContainerWrapper {
+    width: 16.58%;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    visibility: visible;
+    background-color: white;
+    border: solid #dbdbdb 0;
+}
+
+#mcResizeBanner {
+    height: 28px;
+    color: #FFFFFF;
+    background-color: #808080;
+}
+
+    #mcResizeBanner:hover {
+        cursor: pointer;
+    }
+
+.mcResizeText {
+    font-weight: bold;
+    margin-left: 23.4%;
+    height: 25px;
+    padding-top: 3px;
+    display: inline-block;
+}
+
+#mediaContainer {
+    margin-top: 3px;
+}
+
+/* Search bar */
+
+#mediaSearchInputWrapper {
+    float: left;
+    width: 81%;
+}
+
+#mediaSearchInput {
+    width: 90%;
+    margin-left: 5px;
+    margin-bottom: 5px;
+}
+
+#mediaToolsBtn {
+    float: right;
+    margin-right: 5px;
+    height: 30px;
+    width: 30px;
+}
+
+    #mediaToolsBtn a {
+        color: black;
+    }
+
+        #mediaToolsBtn a:hover {
+            text-decoration: none;
+        }
+
+/* Tools dropdown */
+
+#mcToolsMenu {
+    left: 72px;
+    top: 27px;
+}
+
+/* View and filter */
+
+#mediaViewPositioner {
+    display: inline-block;
+    text-align: center;
+    margin-left: 5px;
+}
+
+/* File container */
+
+#fileListContainer {
+    margin-top: 5px;
+    height: 230px;
+    overflow-y: scroll;
+    border: solid #dbdbdb;
+    border-width: 1px 0 0;
+}
+
+#mediaContainer li {
+    margin-bottom: 0;
+    width: 94%;
+    margin-left: auto;
+    margin-right: auto;
+    overflow-y: auto;
+}
+
+    #mediaContainer li img {
+        height: 60px;
+    }
+
+/* List view */
+
+#mcFileList {
+    margin-left: 0;
+    list-style: none;
+}
+
+    #mcFileList li:hover {
+        background-color: #ededed;
+    }
+
+.mcFileListIcon {
+    float: left;
+    display: block;
+    padding-top: 4px;
+}
+
+.mcFileListText {
+    padding-left: 3px;
+    word-wrap: break-word;
+    float: left;
+    display: inline-block;
+    width: 88%;
+}
+
+.filename_wrapper {
+    float: right;
+    width: 90%;
+    display: inline;
+}
+
+#mcFileList .icon-remove {
+    color: red;
+}
+
+.icon-picture, .icon-film {
+    float: left;
+    margin-top: 3px;
+}
+
+/* Gallery view */
+
+.mcImageWrapper {
+    margin-top: 5px;
+}

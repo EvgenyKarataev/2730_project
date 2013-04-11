@@ -57,6 +57,28 @@
 	margin: 0;
 }
 
+/* Logout text */
+#userNameText {
+	margin-left: 8px;
+}
+
+.icon-signout {
+	float: right;
+	margin: 3px 5px 0 0;
+}
+
+/* Links in header */
+#header a {
+	color: white;
+	height: 31px;
+	display: inline-block;
+	width: 100%;
+}
+
+#header a:hover {
+	text-decoration: none;
+}
+
 /* Content panel */
 #content {
 	margin-top: 40px;
@@ -112,6 +134,6 @@
 	color: #dcdcdc;
 }
 
-#dragBoardText:hover{
+#dragBoardText:hover {
 	cursor: default;
 }

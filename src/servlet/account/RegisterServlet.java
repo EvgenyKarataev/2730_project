@@ -44,7 +44,7 @@ public class RegisterServlet extends HttpServlet {
 		}
 		
 		JSONObject json = new JSONObject(new FormMessageModel(isSuccess, message));
-		response.getWriter().print(json);
+		response.getWriter().print(json.toString());
 	}
 
 }

@@ -1,11 +1,19 @@
 package model;
 
 public class FormMessageModel {
-	public boolean isSuccess;
-	public String message;
+	private boolean isSuccess;
+	private String message;
 	
 	public FormMessageModel(boolean isSuccess, String message){
 		this.isSuccess = isSuccess;
 		this.message = message;
+	}
+	
+	public boolean getIsSuccess(){
+		return isSuccess;
+	}
+	
+	public String getMessage(){
+		return message;
 	}
 }

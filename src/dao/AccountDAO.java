@@ -25,7 +25,7 @@ public class AccountDAO extends BaseDAO{
 		try {
 
 			// get questions.
-			PreparedStatement ps = conn.prepareStatement("insert into (userName, password) values(?, ?)");
+			PreparedStatement ps = conn.prepareStatement("insert into User(userName, password) values(?, ?)");
 			ps.setString(1, userName);
 			ps.setString(2, password);
 			ps.executeUpdate();
