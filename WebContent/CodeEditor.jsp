@@ -99,7 +99,10 @@
 			<div id="dragBoard">
 				<p id="dragBoardText">Drag Board</p>
 			</div>
-			<div id="outputPanel"></div>
+			<div id="outputPanelWrapper">
+				<div id="outputPanel">			
+				</div>
+			</div>
 		</div>
 	</div>
 

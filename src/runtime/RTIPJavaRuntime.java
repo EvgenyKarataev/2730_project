@@ -27,7 +27,7 @@ public class RTIPJavaRuntime extends RTIPRuntime {
 
 	// Java code does not need to declare "class"
 	@Override
-	public RuntimeResult runCode(String code) throws IOException {
+	public RuntimeResult runCode(String code) {
 
 		// Write code to a temp file.
 		String filename = nextSessionId();
@@ -37,72 +37,85 @@ public class RTIPJavaRuntime extends RTIPRuntime {
 			codeFile = new File(code_dir + filename + ".java");
 		}
 
-		// Wrap class declaration.
-		code = "public class " + filename + "{" + code + "}";
+		try {
+			// Wrap class declaration.
+			code = "public class " + filename + "{" + code + "}";
 
-		PrintWriter out = new PrintWriter(new FileWriter(codeFile));
-		out.write(code);
-		out.close();
+			PrintWriter out = new PrintWriter(new FileWriter(codeFile));
+			out.write(code);
+			out.close();
 
-		// Compile java code.
-		Iterable<? extends JavaFileObject> compilationUnits = fileManager
-				.getJavaFileObjects(codeFile);
+			// Compile java code.
+			Iterable<? extends JavaFileObject> compilationUnits = fileManager
+					.getJavaFileObjects(codeFile);
 
-		/* Create a diagnostic controller, which holds the compilation problems */
-		DiagnosticCollector<JavaFileObject> diagnostics = new DiagnosticCollector<JavaFileObject>();
+			/*
+			 * Create a diagnostic controller, which holds the compilation
+			 * problems
+			 */
+			DiagnosticCollector<JavaFileObject> diagnostics = new DiagnosticCollector<JavaFileObject>();
 
-		boolean isSuccess = compiler.getTask(null, fileManager, diagnostics,
-				null, null, compilationUnits).call();
+			boolean isSuccess = compiler.getTask(null, fileManager,
+					diagnostics, null, null, compilationUnits).call();
 
-		fileManager.close();
+			fileManager.close();
 
-		StringBuilder output = new StringBuilder();
-		StringBuilder errOutput = new StringBuilder();
+			StringBuilder output = new StringBuilder();
+			StringBuilder errOutput = new StringBuilder();
 
-		if (isSuccess) {
+			if (isSuccess) {
 
-			// Run java code.
-			Process process = Runtime.getRuntime().exec("java " + filename,
-					null, new File(code_dir));
-			// Process process = Runtime.getRuntime().exec("java " + code_dir +
-			// filename);
-			BufferedReader execResult = new BufferedReader(
-					new InputStreamReader(process.getInputStream()));
-			BufferedReader errorResult = new BufferedReader(
-					new InputStreamReader(process.getErrorStream()));
+				// Run java code.
+				Process process = Runtime.getRuntime().exec("java " + filename,
+						null, new File(code_dir));
+				// Process process = Runtime.getRuntime().exec("java " +
+				// code_dir +
+				// filename);
+				BufferedReader execResult = new BufferedReader(
+						new InputStreamReader(process.getInputStream()));
+				BufferedReader errorResult = new BufferedReader(
+						new InputStreamReader(process.getErrorStream()));
 
-			// Return output.
-			String resultStr;
-			while ((resultStr = execResult.readLine()) != null) {
-				output.append(resultStr);
+				// Return output.
+				String resultStr;
+				while ((resultStr = execResult.readLine()) != null) {
+					output.append(resultStr);
+				}
+
+				// Output error.
+				String errorStr;
+				while ((errorStr = errorResult.readLine()) != null) {
+					errOutput.append(errorStr);
+				}
+
+				execResult.close();
+				errorResult.close();
+				process.destroy();
+
+			} else {
+				/* Iterate through each compilation problem and print it */
+				for (Diagnostic diagnostic : diagnostics.getDiagnostics()) {
+					errOutput.append(String.format("Error<%d>: %s",
+							diagnostic.getLineNumber(),
+							diagnostic.getMessage(null)));
+				}
 			}
 
-			// Output error.
-			String errorStr;
-			while ((errorStr = errorResult.readLine()) != null) {
-				errOutput.append(errorStr);
+			RuntimeResult runtimeResult = new RuntimeResult();
+			runtimeResult.isSuccess = isSuccess;
+
+			if (errOutput.length() > 0) {
+				runtimeResult.output = errOutput.toString();
+			} else {
+				runtimeResult.output = output.toString();
 			}
 
-			execResult.close();
-			errorResult.close();
-			process.destroy();
-
-		} else {
-			 /*Iterate through each compilation problem and print it*/
-		    for (Diagnostic diagnostic : diagnostics.getDiagnostics()){
-		    	errOutput.append(String.format("Error<%d>: %s", diagnostic.getLineNumber(), diagnostic.getMessage(null)));
-		    }		
+			return runtimeResult;
+		} catch (Exception e) {
+			RuntimeResult runtimeResult = new RuntimeResult();
+			runtimeResult.isSuccess = false;
+			runtimeResult.output = e.getMessage();
+			return runtimeResult;
 		}
-		
-		RuntimeResult runtimeResult = new RuntimeResult();
-		runtimeResult.isSuccess = isSuccess;
-		
-		if (errOutput.length() > 0) {
-			runtimeResult.output = errOutput.toString();
-		} else {
-			runtimeResult.output = output.toString();
-		}
-		
-		return runtimeResult;
 	}
 }

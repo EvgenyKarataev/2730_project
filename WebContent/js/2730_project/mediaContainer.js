@@ -1,4 +1,6 @@
-﻿/// <reference path="../tiny_mce/editorEmbedded.js" />
+﻿var appRootPath = "/2730_project";
+
+/// <reference path="../tiny_mce/editorEmbedded.js" />
 var mediaContainer = (function () {
     var mediaContainer = {};
 

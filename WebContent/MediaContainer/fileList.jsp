@@ -1,16 +1,19 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="java.util.*" %>
+<%@ page import="model.*" %>
+
 <!DOCTYPE html>
 
-@model List<SALT.MVC.Models.FileListModel>
-@{ int userId = Convert.ToInt32(HttpContext.Current.Session["userId"]); }
+<!-- Model ArrayList<model.FileListModel>  -->
+<%  int userId = Integer.parseInt(request.getSession().getAttribute("userId").toString()); %>
+<%  List<FileListModel> fileList = (List<FileListModel>)request.getAttribute("fileList"); %>
 
 <div id="mediaListViewContainer">
     <ul id="mcFileList">
-        @foreach (var fileModel in Model)
-        {
-            string fileType = "";   
-            switch (fileModel.FileType)
+        <% for(FileListModel fileModel : fileList){ 
+            String fileType = "";   
+            switch (fileModel.getFileType())
             {
                 case FileListModel.FILE_TYPE_IMAGE:
                     fileType = "mcFileType_image";
@@ -21,27 +24,26 @@
                 default:
                     fileType = "mcFileType_other";
                 break;
-            }                                
+            }  
+        %>
             <li class="mcFileListItem @fileType">
-                @if (fileModel.FileType == FileListModel.FILE_TYPE_IMAGE)
-                {
+                <% if (fileModel.getFileType() == FileListModel.FILE_TYPE_IMAGE) {%>
+                
                     <i class="icon-picture" class="mcFileListIcon"></i>
-                }
-                else if (fileModel.FileType == FileListModel.FILE_TYPE_VIDEO)
-                {
+                <% } else if (fileModel.getFileType() == FileListModel.FILE_TYPE_VIDEO) { %>
+                
                     <i class="icon-film" class="mcFileListIcon"></i>
-                }
-                else
-                {
+                <% } else { %>
+                
                     <i class="icon-file" class="mcFileListIcon"></i>
-                }
+                <% } %>
                 <input type="hidden" class="fileSrc" value="~/UserFiles/User_@userId/@fileModel.Filename"/>
                 <div class="filename_wrapper">
-                    <span class="mcFileListText">@fileModel.Filename</span>
+                    <span class="mcFileListText"><%=fileModel.getFilename()%></span>
                     <i class="icon-remove hidden"></i>
                 </div>
             </li>
-        }
+        <% } %>
     </ul>
 </div>
 <div id="mediaGalleryViewContainer" class="hidden">
