@@ -20,5 +20,17 @@ public abstract class RTIPRuntime {
 		public boolean isSuccess;
 		public String output;
 		public long timeElapse;
+		
+		public boolean getIsSuccess(){
+			return isSuccess;
+		}
+		
+		public String getOutput(){
+			return output;
+		}
+		
+		public long getTimeElapse(){
+			return timeElapse;
+		}
 	}
 }

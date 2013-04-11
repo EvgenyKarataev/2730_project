@@ -48,24 +48,21 @@
 </div>
 <div id="mediaGalleryViewContainer" class="hidden">
     <ul class="thumbnails">
-        @foreach (var fileModel in Model)
-        {
-            string fileType = fileModel.FileType == FileListModel.FILE_TYPE_IMAGE ? "mcFileType_image" : "mcFileType_video";
+        <% for(FileListModel fileModel : fileList){ 
+        	String fileType = fileModel.getFileType() == FileListModel.FILE_TYPE_IMAGE ? "mcFileType_image" : "mcFileType_video";          
+        %>       
             <div class="span6 mcImageWrapper">
-                <li class="@fileType" title="@fileModel.Filename">
+                <li class="<%=fileType%>" title="<%=fileModel.getFilename()%>">
                     <a class="thumbnail">
-                        @if (fileModel.FileType == FileListModel.FILE_TYPE_IMAGE)
-                        {
+                        <% if (fileModel.getFileType() == FileListModel.FILE_TYPE_IMAGE){ %>
                              <img src="~/UserFiles/User_@userId/@fileModel.Filename" title="@fileModel.Filename" alt="" />
-                        }
-                        else
-                        {
+                        <% }else{ %>
                              <img src="~/Uploads/FileContainer_icons/video-gallery.png" />
-                        }                      
+                        <% } %>                    
                     </a>
                     <input type="hidden" class="fileSrc" value="~/UserFiles/User_@userId/@fileModel.Filename"/>
                 </li>
             </div>                                        
-        }
+        <% } %>
     </ul>
 </div>

@@ -1,6 +1,4 @@
-﻿var appRootPath = "/2730_project";
-
-/// <reference path="../tiny_mce/editorEmbedded.js" />
+﻿/// <reference path="../tiny_mce/editorEmbedded.js" />
 var mediaContainer = (function () {
     var mediaContainer = {};
 
@@ -44,7 +42,7 @@ var mediaContainer = (function () {
         $(mediaContainer.outerContainer).find('#fileMenuItem').click(fileMenuItemClicked);
 
         // When upload page is hidden, reload file list.
-        $(masterPage.fileUploadLightbox).bind('hidden', loadFiles);
+        $('#fileUploadLightBox').bind('hidden', loadFiles);
         
         // Tools menu item click event.
         $(mediaContainer.outerContainer).find('#fileMenuItemDraw').click(fileMenuItemDrawClicked);
@@ -116,7 +114,7 @@ var mediaContainer = (function () {
     /* *********** */
 
     function loadFiles() {
-        $(mediaContainer.fileListContainer).html('<img src="' + appRootPath + '/Images/ajax-loader-wt.gif"/>');
+        $(mediaContainer.fileListContainer).html('<img src="' + appRootPath + '/img/ajax-loader-wt.gif"/>');
 
         $.post(appRootPath + '/MediaContainer/FileList', function (data) {
             $(mediaContainer.fileListContainer).html(data);
@@ -183,7 +181,7 @@ var mediaContainer = (function () {
 
     function resizeBannerClicked() {
         // Show / hide media container.
-        $(mediaContainer.mediaContainer).toggleClass('hidden');
+        // $(mediaContainer.mediaContainer).toggleClass('hidden');
     }
 
     // Show file upload page.
@@ -280,10 +278,10 @@ var mediaContainer = (function () {
     // Show lightbox for iframe.
     // Including file upload page and video page.
     function showIFrameLightBox(src, width, height) {
-        var lightboxContentDom = $(masterPage.fileUploadLightbox).find('.lightbox-content');
+        var lightboxContentDom = $('#fileUploadLightBox').find('.lightbox-content');
 
         // Show file manager in lightbox.      
-        var iframe = $('<iframe id="fileUploaderIFrame" src="' + src + '/"/>');
+        var iframe = $('<iframe id="fileUploaderIFrame" src="' + src + '"/>');
 
         // Set iframe style.
         if (width && height) {
@@ -291,7 +289,7 @@ var mediaContainer = (function () {
         }
 
         $(lightboxContentDom).html(iframe);
-        $(masterPage.fileUploadLightbox).lightbox({
+        $('#fileUploadLightBox').lightbox({
             resizeToFit: false
         });
     }

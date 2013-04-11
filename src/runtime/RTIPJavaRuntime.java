@@ -80,12 +80,14 @@ public class RTIPJavaRuntime extends RTIPRuntime {
 				String resultStr;
 				while ((resultStr = execResult.readLine()) != null) {
 					output.append(resultStr);
+					output.append("\n");
 				}
 
 				// Output error.
 				String errorStr;
 				while ((errorStr = errorResult.readLine()) != null) {
 					errOutput.append(errorStr);
+					output.append("\n");
 				}
 
 				execResult.close();
@@ -95,8 +97,8 @@ public class RTIPJavaRuntime extends RTIPRuntime {
 			} else {
 				/* Iterate through each compilation problem and print it */
 				for (Diagnostic diagnostic : diagnostics.getDiagnostics()) {
-					errOutput.append(String.format("Error<%d>: %s",
-							diagnostic.getLineNumber(),
+					errOutput.append(String.format("Error<%d>: %s\n",
+							diagnostic.getLineNumber() - 1,
 							diagnostic.getMessage(null)));
 				}
 			}
@@ -105,8 +107,10 @@ public class RTIPJavaRuntime extends RTIPRuntime {
 			runtimeResult.isSuccess = isSuccess;
 
 			if (errOutput.length() > 0) {
+				runtimeResult.isSuccess = false;
 				runtimeResult.output = errOutput.toString();
 			} else {
+				runtimeResult.isSuccess = true;
 				runtimeResult.output = output.toString();
 			}
 

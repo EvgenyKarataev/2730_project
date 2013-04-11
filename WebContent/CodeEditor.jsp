@@ -14,14 +14,11 @@
 <title>Code Editor</title>
 
 <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
-<link rel="stylesheet" type="text/css"
-	href="css/bootstrap-lightbox.min.css" />
+<link rel="stylesheet" type="text/css" href="css/bootstrap-lightbox.min.css" />
 <link rel="stylesheet" type="text/css" href="css/font-awesome.min.css" />
-<link rel="stylesheet" type="text/css"
-	href="codemirror/lib/codemirror.css" />
-<link rel="stylesheet" type="text/css"
-	href="css/2730_project/CodeEditor.css" />
-
+<link rel="stylesheet" type="text/css" href="codemirror/lib/codemirror.css" />
+<link rel="stylesheet" type="text/css" href="css/2730_project/CodeEditor.css" />
+<link rel="stylesheet" type="text/css" href="css/2730_project/mediaContainer.css" />
 
 <script src="js/jquery-1.9.1.min.js"></script>
 <script src="js/bootstrap.min.js"></script>
@@ -34,6 +31,8 @@
 <script src="codemirror/mode/javascript/javascript.js"></script>
 <script src="codemirror/addon/fold/indent-fold.js"></script>
 
+<script src="js/2730_project/global.js"></script>
+<script src="js/2730_project/mediaContainer.js"></script>
 <script src="js/2730_project/CodeEditor.js"></script>
 
 </head>
@@ -43,18 +42,29 @@
 		<div class="controlBtn" id="logoContainer"></div>
 
 		<div id="controlBtns">
+			<div class="controlBtn" id="undoBtn">
+				<i class="icon-undo"></i> <span class="btnText">Undo</span>
+			</div>
+			<div class="controlBtn" id="redoBtn">
+				<i class="icon-repeat"></i> <span class="btnText">Redo</span>
+			</div>
+			<div class="controlBtn" id="formatBtn">
+				<i class="icon-list"></i> <span class="btnText">Format</span>
+			</div>
 			<div class="controlBtn" id="runBtn">
 				<i class="icon-play-circle"></i> <span class="btnText">Run</span>
 			</div>
 			<div class="controlBtn" id="saveBtn">
 				<i class="icon-save"></i> <span class="btnText">Save</span>
-			</div>
-			<div class="controlBtn" id="formatBtn">
-				<i class="icon-list"></i> <span class="btnText">Format</span>
-			</div>
-			<div class="controlBtn" id="shareBtn">
-				<i class="icon-share-alt"></i> <span class="btnText">Share</span>
-			</div>
+			</div>			
+			<div class="absolutePanel hidden" id="savePanel">
+				<div style="margin: 5px 0 0 1px;font-size: 11px;">Filename:</div>
+				<input type="text" id="filenameInput" name="filename"/>
+				<div id="saveFileBtns">
+					<i class="icon-save" title="Save"></i>
+					<i class="icon-remove-circle" title="Cancel"></i>				
+				</div>
+			</div>			
 		</div>
 		
 		<% 
@@ -105,6 +115,29 @@
 			</div>
 		</div>
 	</div>
+
+<!-- lightboxes -->
+<div id="saltLightBox" class="lightbox hide fade" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class='lightbox-header'>
+        <button type="button" class="close" data-dismiss="lightbox" aria-hidden="true">&times;</button>
+    </div>
+    <div class='lightbox-content'>
+        <!--<div class="lightbox-caption"><p>Your caption here</p></div>-->
+        <img src="" />
+        <video controls>
+            <source src="movie.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+    </div>
+</div>
+<div id="fileUploadLightBox" class="lightbox hide fade" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class='lightbox-header'>
+        <button type="button" class="close" data-dismiss="lightbox" aria-hidden="true">&times;</button>
+    </div>
+    <div class='lightbox-content'>
+       <!--<div class="lightbox-caption"><p>Your caption here</p></div>-->
+    </div>
+</div>
 
 </body>
 </html>

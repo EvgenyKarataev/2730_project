@@ -57,6 +57,38 @@
 	margin: 0;
 }
 
+/* Save panel */
+#savePanel {
+	background-color: white;
+	color: black;
+	width: 225px;
+	float: right;
+	margin-right: 72px;
+	padding-left: 8px;
+	box-shadow: 0 2px 30px rgba(0, 0, 0, 0.4);
+}
+
+#filenameInput {
+	margin-bottom: 5px;
+	height: 15px;
+}
+
+#saveFileBtns {
+	display: inline-block;
+	float: right;
+	margin-bottom: 5px;
+	margin-right: 5px;
+}
+
+#saveFileBtns i {
+	font-size: 15px;
+	margin-right: 3px;
+}
+
+#saveFileBtns i:hover{
+	cursor:pointer;
+}
+
 /* Logout text */
 #userNameText {
 	margin-left: 8px;
@@ -118,11 +150,14 @@
 }
 
 /* right panel */
+
+/* Drag board */
 #dragBoard {
 	background-color: white;
 	height: 250px;
 	border: solid #dddddd;
 	border-width: 0 0 0 1px;
+	height: 42%;
 }
 
 #dragBoardText {
@@ -139,10 +174,24 @@
 	cursor: default;
 }
 
+/* Output panel */
+#outputPanelWrapper {
+	overflow-y: auto;
+	height: 58%;
+}
+
 #outputPanel {
 	margin-top: 3px;
 	width: 97%;
 	margin-left: auto;
 	margin-right: auto;
 	font-size: 12px;
+}
+
+.errorText {
+	color: red;
+}
+
+.outputText {
+	margin-top: 5px;
 }

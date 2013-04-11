@@ -3,6 +3,7 @@ package model;
 public class FileListModel {
 	public static final int FILE_TYPE_IMAGE = 1;
 	public static final int FILE_TYPE_VIDEO = 2;
+	public static final int FILE_TYPE_CODE = 3;
 	public static final int FILE_TYPE_OTHER = 9;
 
 	private String filename;

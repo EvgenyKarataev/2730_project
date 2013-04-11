@@ -1,7 +1,7 @@
-﻿/* Whole Container */
+/* Whole Container */
 
 #mediaContainerWrapper {
-    width: 16.58%;
+    width: 16.6%;
     position: fixed;
     left: 0;
     bottom: 0;
@@ -22,7 +22,7 @@
 
 .mcResizeText {
     font-weight: bold;
-    margin-left: 23.4%;
+    margin-left: 42.5%;
     height: 25px;
     padding-top: 3px;
     display: inline-block;
@@ -63,7 +63,7 @@
 /* Tools dropdown */
 
 #mcToolsMenu {
-    left: 72px;
+    left: 60px;
     top: 27px;
 }
 
@@ -79,7 +79,7 @@
 
 #fileListContainer {
     margin-top: 5px;
-    height: 230px;
+    height: 250px;
     overflow-y: scroll;
     border: solid #dbdbdb;
     border-width: 1px 0 0;

@@ -11,12 +11,15 @@ $(function() {
 		codeEditor.rightCP = $('#rightCP');
 
 		// Control buttons.
+		codeEditor.undoBtn = $('#undoBtn');
+		codeEditor.redoBtn = $('#redoBtn');
 		codeEditor.runBtn = $('#runBtn');
 		codeEditor.saveBtn = $('#saveBtn');
-		codeEditor.formatBtn = $('#formatBtn');
-		codeEditor.shareBtn = $('#shareBtn');
+		codeEditor.formatBtn = $('#formatBtn');		
 		
+		// Other components.
 		codeEditor.runtimeSelect = $('#languageSelect');
+		codeEditor.savePanel = $('#savePanel');
 		codeEditor.outputPanel = $('#outputPanel');
 
 		/* private variables */
@@ -26,7 +29,7 @@ $(function() {
 		var myCodeMirror = CodeMirror(
 				codeEditor.middleCP.get(0),
 				{
-					value : 'public static void main(String[] args){System.out.println("Hello World");}',
+					value : 'public static void main(String[] args){\nSystem.out.println("Hello World");\n}',
 					lineWrapping : true,
 					lineNumbers : true,
 					mode : "text/x-java"
@@ -56,20 +59,29 @@ $(function() {
 				code : code
 			}, function(data, statusText, xhr){
 				
+				$(codeEditor.outputPanel).empty();
+				
 				if(data.isSuccess){
-					$(codeEditor.outputPanel).append('<div>Your code compiles and runs successfully.<div>');
+					$(codeEditor.outputPanel).append('<div>Your code compiled and ran successfully.<div>');
 				}else{
-					$(codeEditor.outputPanel).append('<div class="errorText">We are unable to run your code, please check following output.<div>');
+					$(codeEditor.outputPanel).append('<div class="errorText">We are unable to run your code, please check following output and revise your code.<div>');
 				}
 				
-				data = data.replace('\n', '<br/>');
-				$(codeEditor.outputPanel).text(data);
+				data.output = data.output.replace(/\n/ig, '<br/>');
+				$(codeEditor.outputPanel).append('<div class="outputText">' + data.output +'</div>');
 				
 				isRunningCode = false;
-			}).fail(function() { 
+				
+			}, 'json').fail(function() { 
 				$(codeEditor.outputPanel).append('<div class="errorText">Server has encountered errors, please try again.<div>');
 				isRunningCode = false;
 			});
+		}
+		
+		// Save code file.
+		// If file doesn't exist, create a nw file.
+		function saveFile(filename, code){
+			
 		}
 
 		/* init code */
@@ -77,6 +89,11 @@ $(function() {
 		$('#content').height($(window).height() - 40);
 		// codeEditor.autoFormat();
 
+		$(codeEditor.undoBtn).click(function(e){myCodeMirror.getDoc().undo();});
+		$(codeEditor.redoBtn).click(function(e){myCodeMirror.getDoc().redo();});
+		$(codeEditor.formatBtn).click(function(e){});
+		
+		
 		// Bind run code event.
 		$(codeEditor.runBtn).click(function(e){
 			
@@ -91,6 +108,45 @@ $(function() {
 			
 			runCode(runtimeType, code);
 		});
+		
+		// Bind save file btn event.
+		// Open save panel
+		$(codeEditor.saveBtn).click(function(e){
+			
+			// If save panel is open, close it.
+			if(!$(codeEditor.savePanel).hasClass('hidden')){
+				$(codeEditor.savePanel).addClass('hidden');
+				return;
+			}
+			
+			// Open save panel.
+			$(codeEditor.savePanel).removeClass('hidden');
+			
+			// Show default filename nased on type select.
+			var filenameInput = $(codeEditor.savePanel).find('#filenameInput');
+			
+			// Focus and select all.	
+			setTimeout(function(){$(filenameInput).focus().select();}, 100);
+			
+			if($(codeEditor.runtimeSelect).val() == 'Java'){
+				$(filenameInput).val('NewFile.java');
+			}else if($(codeEditor.runtimeSelect).val() == 'Python'){
+				$(filenameInput).val('NewFile.py');
+			}
+		});
+		
+		// Hide save panel.
+		$(codeEditor.savePanel).find('.icon-remove-circle').click(function(e){
+			$(codeEditor.savePanel).addClass('hidden');
+		});
+		
+		// Save file.
+		$(codeEditor.savePanel).find('.icon-save').click(function(e){
+			
+		});
+		
+		// Load mediaContainer.
+		mediaContainer.loadMediaContainer($('#fileContainerWrapper'));
 		
 		return codeEditor;
 	})();

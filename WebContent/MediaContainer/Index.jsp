@@ -3,7 +3,7 @@
 	
 <div id="mediaContainerWrapper">
 	<div class="row" id="mcResizeBanner">
-		<span class="mcResizeText">Media Container</span>
+		<span class="mcResizeText">Files</span>
 	</div>
 	<div id="mediaContainer">
 		<div class="row" id="searchBar_tool">
