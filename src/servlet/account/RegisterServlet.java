@@ -1,5 +1,6 @@
 package servlet.account;
 
+import java.io.File;
 import java.io.IOException;
 
 import javax.servlet.ServletException;
@@ -34,10 +35,14 @@ public class RegisterServlet extends HttpServlet {
 		// Validate data.
 		try{
 			AccountDAO dao = AccountDAO.getInstance();
-			dao.Register(userName, password, confirm);
+			int newUserId = dao.Register(userName, password, confirm);
 			
 			isSuccess = true;
 			message = "Your account was created";
+			
+			// Create user's file repository.
+			File dir = new File(request.getServletContext().getRealPath("/UserFiles/" + newUserId));
+			dir.mkdir();
 			
 		}catch(Exception e){
 			message = e.getMessage();

@@ -174,10 +174,14 @@ $(function() {
 			var isNewFile = $(this).parents('#savePanel').children('#isNewFileInput').val();
 			
 			saveFile(filename, code, isNewFile);
+			$(codeEditor.savePanel).addClass('hidden');
+			mediaContainer.loadFiles();
 		});
 
 		// Load mediaContainer.
-		mediaContainer.loadMediaContainer($('#fileContainerWrapper'));
+		if($('#userIdInput').val() != 'null'){
+			mediaContainer.loadMediaContainer($('#fileContainerWrapper'));
+		}
 
 		return codeEditor;
 	})();

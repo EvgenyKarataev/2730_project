@@ -37,18 +37,21 @@ public class ImportFile extends HttpServlet {
 		String temp = matcher.group();
 		int fileOwnerId = Integer
 				.parseInt(temp.substring(1, temp.length() - 1));
+		String filename = fileLink.substring(fileLink.lastIndexOf("/") + 1);
 
 		// Check if the file was shared.
 		JSONObject json = new JSONObject();
 		try {
 			boolean isShared = FileDAO.getInstance().isFileSharable(
-					fileOwnerId,
-					fileLink.substring(fileLink.lastIndexOf("/") + 1));
+					fileOwnerId, filename);
 			
 			if(isShared){
 				// Copy a file to requesting user.
-				File srcFile = new File(fileLink);
-				File destFile = new File(fileLink.replace("/"+fileOwnerId+"/", "/"+userId+"/"));
+				String srcFileLink = request.getServletContext().getRealPath("/UserFiles/" + fileOwnerId + "/" + filename);
+				String destFileLink = request.getServletContext().getRealPath("/UserFiles/" + userId + "/" + filename);
+				
+				File srcFile = new File(srcFileLink);
+				File destFile = new File(destFileLink);
 				FileUtils.copyFile(srcFile, destFile);
 				
 				json.put("message", "A copy was created under you repository.");

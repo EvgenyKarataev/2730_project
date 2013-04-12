@@ -38,6 +38,9 @@ public class FileDAO extends BaseDAO{
 	// Share a file.
 	// Add a sharable record into DB.
 	public void shareFile(int userId, String filename) throws Exception{
+		
+		if(isFileSharable(userId, filename)) return;
+		
 		Connection conn = getConnection();	
 		try {
 			// get questions.

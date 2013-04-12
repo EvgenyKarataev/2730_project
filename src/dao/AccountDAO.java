@@ -15,7 +15,8 @@ public class AccountDAO extends BaseDAO{
 	private AccountDAO(){}
 
 	// Register user, 
-	public void Register(String userName, String password, String confirmPassword) throws Exception{
+	// Return userId
+	public synchronized int Register(String userName, String password, String confirmPassword) throws Exception{
 		
 		if(!password.equals(confirmPassword)){
 			throw new Exception("Confrim password is not same as password.");
@@ -23,12 +24,18 @@ public class AccountDAO extends BaseDAO{
 		
 		Connection conn = getConnection();	
 		try {
-
+			
 			// get questions.
 			PreparedStatement ps = conn.prepareStatement("insert into User(userName, password) values(?, ?)");
 			ps.setString(1, userName);
 			ps.setString(2, password);
 			ps.executeUpdate();
+			
+			ps = conn.prepareStatement("select userId from User order by userId desc limit 1");		
+			ResultSet rs = ps.executeQuery();
+			rs.next();
+			
+			return rs.getInt("userId");
 
 		} catch (SQLException sqle) {
 			sqle.printStackTrace();

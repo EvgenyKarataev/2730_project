@@ -125,7 +125,7 @@
 	color: red;
 }
 
-#mcFileList i:hover{
+#mcFileList i:hover {
 	cursor: pointer;
 }
 
@@ -134,7 +134,26 @@
 	margin-top: 3px;
 }
 
+.icon-file{
+	width: 14px !important;
+}
+
 /* Gallery view */
 .mcImageWrapper {
 	margin-top: 5px;
+}
+
+/* Import file */
+.dropdown-menu>li>a {
+	width: 81%;
+	padding-right: 0;
+}
+
+#importFileBtn {
+	float: right;
+	font-size: 16px;
+}
+
+#importFileBtn :hover {
+	cursor: pointer;
 }

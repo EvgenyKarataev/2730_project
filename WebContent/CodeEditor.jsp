@@ -37,7 +37,7 @@
 
 </head>
 <body>
-
+	<input type="hidden" id="userIdInput" value="<%=request.getSession().getAttribute("userId") %>" />
 	<div class="row" id="header">
 		<div class="controlBtn" id="logoContainer"></div>
 
@@ -58,6 +58,7 @@
 				<i class="icon-save"></i> <span class="btnText">Save</span>
 			</div>			
 			<div class="absolutePanel hidden" id="savePanel">
+			<% if(isLogin){ %>
 				<div style="margin: 5px 0 0 1px;font-size: 11px;">Filename:</div>
 				<input type="text" id="filenameInput" name="filename"/>
 				<input type="hidden" id="isNewFileInput" name="isNewFile" value="true"/>
@@ -65,6 +66,9 @@
 					<i class="icon-save" title="Save"></i>
 					<i class="icon-remove-circle" title="Cancel"></i>				
 				</div>
+				<%}else{ %>
+					<div style="margin: 5px 0 0 1px;font-size: 11px;height: 30px;">Please login to use this function.</div>
+				<% } %>
 			</div>			
 		</div>
 		

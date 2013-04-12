@@ -21,8 +21,9 @@
 				</a>
 				<ul class="dropdown-menu" role="menu" id="mcToolsMenu"
 					aria-labelledby="dLabel">
-					<li><a tabindex="-1" id="fileMenuItem">Upload Files...</a></li>
-					<li><a tabindex="-1" id="fileMenuItemDraw">Draw...</a></li>
+					<li class="fileMenuItemLi"><a tabindex="-1" id="fileMenuItem">Upload Files</a></li>
+					<li class="fileMenuItemLi"><a tabindex="-1" id="fileMenuItemImport">Import File</a></li>
+					<li class="fileMenuItemLi"><a tabindex="-1" id="fileMenuItemDraw">Draw</a></li>
 				</ul>
 			</div>
 

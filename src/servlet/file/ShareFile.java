@@ -12,9 +12,6 @@ import org.json.JSONObject;
 
 import dao.FileDAO;
 
-/**
- * Servlet implementation class ShareFile
- */
 @WebServlet("/MediaContainer/ShareFile")
 public class ShareFile extends HttpServlet {
 	protected void doPost(HttpServletRequest request,

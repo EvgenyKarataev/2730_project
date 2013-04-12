@@ -21,6 +21,9 @@
                 case FileListModel.FILE_TYPE_VIDEO:
                     fileType = "mcFileType_video";
                     break;
+                case FileListModel.FILE_TYPE_CODE:
+                    fileType = "mcFileType_video";
+                    break;
                 default:
                     fileType = "mcFileType_other";
                 break;
