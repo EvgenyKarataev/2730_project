@@ -60,6 +60,7 @@
 			<div class="absolutePanel hidden" id="savePanel">
 				<div style="margin: 5px 0 0 1px;font-size: 11px;">Filename:</div>
 				<input type="text" id="filenameInput" name="filename"/>
+				<input type="hidden" id="isNewFileInput" name="isNewFile" value="true"/>
 				<div id="saveFileBtns">
 					<i class="icon-save" title="Save"></i>
 					<i class="icon-remove-circle" title="Cancel"></i>				

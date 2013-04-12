@@ -26,7 +26,7 @@
                 break;
             }  
         %>
-            <li class="mcFileListItem @fileType">
+            <li class="mcFileListItem <%=fileType%>">
                 <% if (fileModel.getFileType() == FileListModel.FILE_TYPE_IMAGE) {%>
                 
                     <i class="icon-picture" class="mcFileListIcon"></i>
@@ -37,10 +37,11 @@
                 
                     <i class="icon-file" class="mcFileListIcon"></i>
                 <% } %>
-                <input type="hidden" class="fileSrc" value="~/UserFiles/User_@userId/@fileModel.Filename"/>
+                <input type="hidden" class="fileSrc" value="<%="UserFiles/"+ userId +"/" + fileModel.getFilename() %>" />
                 <div class="filename_wrapper">
                     <span class="mcFileListText"><%=fileModel.getFilename()%></span>
-                    <i class="icon-remove hidden"></i>
+                    <i class="icon-share-alt hidden" title="Share this file"></i>
+                    <i class="icon-remove hidden" title="Delete this file"></i>
                 </div>
             </li>
         <% } %>
@@ -55,12 +56,14 @@
                 <li class="<%=fileType%>" title="<%=fileModel.getFilename()%>">
                     <a class="thumbnail">
                         <% if (fileModel.getFileType() == FileListModel.FILE_TYPE_IMAGE){ %>
-                             <img src="~/UserFiles/User_@userId/@fileModel.Filename" title="@fileModel.Filename" alt="" />
-                        <% }else{ %>
-                             <img src="~/Uploads/FileContainer_icons/video-gallery.png" />
+                             <img src="<%="UserFiles/"+ userId +"/"+fileModel.getFilename() %>" title="<%=fileModel.getFilename() %>" alt="" />
+                        <% }else if(fileModel.getFileType() == FileListModel.FILE_TYPE_VIDEO){ %>
+                             <img src="img/FileContainer_icons/video-gallery.png" />
+                        <% }else { %>
+                        	 <img src="img/FileContainer_icons/text-file-icon.png" />
                         <% } %>                    
                     </a>
-                    <input type="hidden" class="fileSrc" value="~/UserFiles/User_@userId/@fileModel.Filename"/>
+                    <input type="hidden" class="fileSrc" value="<%="UserFiles/"+ userId +"/"+fileModel.getFilename() %>"/>
                 </li>
             </div>                                        
         <% } %>

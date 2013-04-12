@@ -1,7 +1,9 @@
 package dao;
 
-import java.io.File;
-import java.util.List;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class FileDAO extends BaseDAO{
 
@@ -11,35 +13,44 @@ public class FileDAO extends BaseDAO{
 	}
 	
 	private FileDAO(){}
-	
-	// Get user's files.
-	public List<File> fileList(int userId){
-		return null;
-	}
-	
-	// If user saves codes which were not saved before, create a new code file.
-	public void createCodeFile(int userId, String filename, String code){
-		
-	}
-	
-	// Create any type of file.
-	public void createFile(int userId, File file){
-		
-	}
-	
-	// Saves code to existing code file.
-	public void editCodeFile(int userId, int fileId, String code){
-		
-	}
-	
-	// Delete a file.
-	public void deleteFile(int userId, int fileId){
-		
+			
+	// Check if file is sharable.
+	public boolean isFileSharable(int userId, String filename) throws Exception{
+		Connection conn = getConnection();	
+		try {
+			// get questions.
+			PreparedStatement ps = conn.prepareStatement("select * from sharable_file where userId = ? and filename = ?");
+			ps.setInt(1, userId);
+			ps.setString(2, filename);
+			ResultSet rs = ps.executeQuery();
+			
+			while(rs.next())return true;
+			
+		} catch (SQLException sqle) {
+			sqle.printStackTrace();
+			throw sqle;
+		} finally {
+			closeConnection(conn);			
+		}		
+		return false;
 	}
 	
 	// Share a file.
-	// Returns a file share link.
-	public String shareFile(int userId, int fileId){
-		return null;
+	// Add a sharable record into DB.
+	public void shareFile(int userId, String filename) throws Exception{
+		Connection conn = getConnection();	
+		try {
+			// get questions.
+			PreparedStatement ps = conn.prepareStatement("insert into sharable_file(userId, filename) values(?, ?)");
+			ps.setInt(1, userId);
+			ps.setString(2, filename);
+			ps.executeUpdate();
+
+		} catch (SQLException sqle) {
+			sqle.printStackTrace();
+			throw sqle;
+		} finally {
+			closeConnection(conn);
+		}		
 	}
 } 

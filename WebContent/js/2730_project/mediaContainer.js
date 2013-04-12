@@ -58,6 +58,10 @@ var mediaContainer = (function () {
             },
         'html');
     };
+    
+    mediaContainer.loadFiles = function(){
+    	loadFiles();
+    };
 
     // Handle drop event of tyniMCE editor.
     mediaContainer.fileItemDropEventHandler = function (ev) {
@@ -108,7 +112,7 @@ var mediaContainer = (function () {
 
     mediaContainer.previewVideo = function (fileSrc) {
         var videoFilename = fileSrc.substring(fileSrc.lastIndexOf('/') + 1, fileSrc.length);
-        showIFrameLightBox(appRootPath + '/MediaContainer/VideoPage/' + videoFilename, 440, 290);
+        showIFrameLightBox(appRootPath + '/MediaContainer/VideoPage?videoFilename=' + videoFilename, 440, 290);
     };
 
     /* *********** */
@@ -141,9 +145,9 @@ var mediaContainer = (function () {
         // Show / Hide remove icon.
         $(mediaContainer.listViewContainer).find('li')
             .hover(function () {
-                $(this).find('.icon-remove').removeClass('hidden');
+                $(this).find('.filename_wrapper').find('i').removeClass('hidden');
             }).mouseleave(function () {
-                $(this).find('.icon-remove').addClass('hidden');
+            	$(this).find('.filename_wrapper').find('i').addClass('hidden');
             });
 
         // Delete file from file list.
@@ -262,17 +266,17 @@ var mediaContainer = (function () {
         } else if (fileType == 'video') {
             // Video
             var videoFilename = fileSrc.substring(fileSrc.lastIndexOf('/') + 1, fileSrc.length);
-            showIFrameLightBox(appRootPath + '/MediaContainer/VideoPage/' + videoFilename, 440, 290);
+            showIFrameLightBox(appRootPath + '/MediaContainer/VideoPage?videoFilename=' + videoFilename, 440, 290);
         }
     }
 
     // Used by fileListItemClicked and thumbnailClicked.
     // Only for image.
     function showFileInLightbox(src) {
-        var lightboxContentDom = $(masterPage.lightbox).find('.lightbox-content');
+        var lightboxContentDom = $('#saltLightBox').find('.lightbox-content');
         var imgDom = $('<img src="' + src + '" />');
         $(lightboxContentDom).html(imgDom);
-        $(masterPage.lightbox).lightbox();
+        $('#saltLightBox').lightbox();
     }
 
     // Show lightbox for iframe.

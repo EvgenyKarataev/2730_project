@@ -1,144 +1,140 @@
 /* Whole Container */
-
 #mediaContainerWrapper {
-    width: 16.6%;
-    position: fixed;
-    left: 0;
-    bottom: 0;
-    visibility: visible;
-    background-color: white;
-    border: solid #dbdbdb 0;
+	width: 16.6%;
+	position: fixed;
+	left: 0;
+	bottom: 0;
+	visibility: visible;
+	background-color: white;
+	border: solid #dbdbdb 0;
 }
 
 #mcResizeBanner {
-    height: 28px;
-    color: #FFFFFF;
-    background-color: #808080;
+	height: 28px;
+	color: #FFFFFF;
+	background-color: #808080;
 }
 
-    #mcResizeBanner:hover {
-        cursor: pointer;
-    }
+#mcResizeBanner:hover {
+	cursor: pointer;
+}
 
 .mcResizeText {
-    font-weight: bold;
-    margin-left: 42.5%;
-    height: 25px;
-    padding-top: 3px;
-    display: inline-block;
+	font-weight: bold;
+	margin-left: 42.5%;
+	height: 25px;
+	padding-top: 3px;
+	display: inline-block;
 }
 
 #mediaContainer {
-    margin-top: 3px;
+	margin-top: 3px;
 }
 
 /* Search bar */
-
 #mediaSearchInputWrapper {
-    float: left;
-    width: 81%;
+	float: left;
+	width: 81%;
 }
 
 #mediaSearchInput {
-    width: 90%;
-    margin-left: 5px;
-    margin-bottom: 5px;
+	width: 90%;
+	margin-left: 5px;
+	margin-bottom: 5px;
 }
 
 #mediaToolsBtn {
-    float: right;
-    margin-right: 5px;
-    height: 30px;
-    width: 30px;
+	float: right;
+	margin-right: 5px;
+	height: 30px;
+	width: 30px;
 }
 
-    #mediaToolsBtn a {
-        color: black;
-    }
+#mediaToolsBtn a {
+	color: black;
+}
 
-        #mediaToolsBtn a:hover {
-            text-decoration: none;
-        }
+#mediaToolsBtn a:hover {
+	text-decoration: none;
+}
 
 /* Tools dropdown */
-
 #mcToolsMenu {
-    left: 60px;
-    top: 27px;
+	left: 60px;
+	top: 27px;
 }
 
 /* View and filter */
-
 #mediaViewPositioner {
-    display: inline-block;
-    text-align: center;
-    margin-left: 5px;
+	display: inline-block;
+	text-align: center;
+	margin-left: 5px;
 }
 
 /* File container */
-
 #fileListContainer {
-    margin-top: 5px;
-    height: 250px;
-    overflow-y: scroll;
-    border: solid #dbdbdb;
-    border-width: 1px 0 0;
+	margin-top: 5px;
+	height: 250px;
+	overflow-y: scroll;
+	border: solid #dbdbdb;
+	border-width: 1px 0 0;
 }
 
 #mediaContainer li {
-    margin-bottom: 0;
-    width: 94%;
-    margin-left: auto;
-    margin-right: auto;
-    overflow-y: auto;
+	margin-bottom: 0;
+	width: 100%;
+	overflow-y: auto;
+	padding-left: 5px;
 }
 
-    #mediaContainer li img {
-        height: 60px;
-    }
+#mediaContainer li img {
+	height: 60px;
+}
 
 /* List view */
-
 #mcFileList {
-    margin-left: 0;
-    list-style: none;
+	margin-left: 0;
+	list-style: none;
 }
 
-    #mcFileList li:hover {
-        background-color: #ededed;
-    }
+#mcFileList li:hover {
+	background-color: #ededed;
+}
 
 .mcFileListIcon {
-    float: left;
-    display: block;
-    padding-top: 4px;
+	float: left;
+	display: block;
+	padding-top: 4px;
 }
 
 .mcFileListText {
-    padding-left: 3px;
-    word-wrap: break-word;
-    float: left;
-    display: inline-block;
-    width: 88%;
+	padding-left: 3px;
+	word-wrap: break-word;
+	float: left;
+	display: inline-block;
+	width: 76%;
 }
 
 .filename_wrapper {
-    float: right;
-    width: 90%;
-    display: inline;
+	float: right;
+	width: 90%;
+	display: inline;
 }
 
 #mcFileList .icon-remove {
-    color: red;
+	color: red;
 }
 
-.icon-picture, .icon-film {
-    float: left;
-    margin-top: 3px;
+#mcFileList i:hover{
+	cursor: pointer;
+}
+
+.icon-picture,.icon-film {
+	float: left;
+	margin-top: 3px;
 }
 
 /* Gallery view */
-
 .mcImageWrapper {
-    margin-top: 5px;
+	margin-top: 5px;
 }
