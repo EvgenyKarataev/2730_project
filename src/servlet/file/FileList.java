@@ -38,7 +38,7 @@ public class FileList extends HttpServlet {
 		}
 		
 		request.setAttribute("fileList", userFiles);
-		request.getRequestDispatcher("/MediaContainer/FileList.jsp").forward(request, response);
+		request.getRequestDispatcher("/MediaContainer/fileList.jsp").forward(request, response);
 	}
 
 }

@@ -54,7 +54,7 @@ public class AccountDAO extends BaseDAO{
 			
 			// get questions.
 			PreparedStatement ps = conn
-					.prepareStatement("SELECT userId, password FROM User where userName = ?");
+					.prepareStatement("SELECT userId, password FROM user where userName = ?");
 			ps.setString(1, userName);
 			
 			ResultSet result = ps.executeQuery();

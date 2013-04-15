@@ -20,7 +20,7 @@ $(function () {
         // Uncomment the following to send cross-domain cookies:
         //xhrFields: {withCredentials: true},
         url: appRootPath + '/MediaContainer/UploadFiles',
-        acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i
+        acceptFileTypes: /(\.|\/)(gif|jpe?g|png|cs?s?|xml|xsd|jsp|js|java|html|sql|)$/i
     });
 
     // Enable iframe cross-domain access via redirect option:

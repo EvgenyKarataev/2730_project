@@ -7,9 +7,9 @@ import java.sql.SQLException;
 public class BaseDAO {
 
 	private static final BaseDAO DAO = new BaseDAO();
-	private static final String connURL = "jdbc:mysql://localhost/2730_project";
+	private static final String connURL = "jdbc:mysql://localhost:3306/2730_project";
 	private static final String dbuser = "root";
-	private static final String dbpassword = "";
+	private static final String dbpassword = "root";
 
 	public static BaseDAO getInstance() {
 		return DAO;
@@ -27,6 +27,7 @@ public class BaseDAO {
 	protected Connection getConnection() {
 
 		try {
+			
 			Connection conn = DriverManager.getConnection(connURL, dbuser,
 					dbpassword);
 			return conn;

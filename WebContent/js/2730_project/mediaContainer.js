@@ -76,24 +76,30 @@ var mediaContainer = (function() {
 	// Handle drop event of tyniMCE editor.
 	mediaContainer.fileItemDropEventHandler = function(ev) {
 
+		var dataTransfer = typeof ev.originalEvent === "undefined" ? ev.dataTransfer : ev.originalEvent.dataTransfer;
+		
 		// If the source is from the media container, get fileSrc from dragstart
 		// event.
 		// Otherwise call default drag n drop event.
-		if ($.inArray('filesrc', ev.dataTransfer.types) >= 0) {
+		if ($.inArray('filesrc', dataTransfer.types) >= 0) {
 			ev.preventDefault();
 		}
 
-		var fileSrc = ev.dataTransfer.getData("fileSrc");
+		var fileSrc = dataTransfer.getData("fileSrc");
 		var fileExt = fileSrc.substring(fileSrc.lastIndexOf('.') + 1,
 				fileSrc.length);
-		var fileType = getFileType(fileSrc);
+		var fileType = this.getFileType(fileSrc);
 		var appendedDom;
 
+		var added = false;
+		
+		
+		
 		if (fileType == 'image') {
 			// Append image to editor.
 			appendedDom = $('<img src="'
 					+ fileSrc
-					+ '" class="lessletContentImage" height="100" width="100" />');
+					+ '" class="lessletContentImage" height="100%" width="100%" />'); //
 		} else if (fileType == 'video') {
 
 			// Append video to editor.
@@ -108,7 +114,7 @@ var mediaContainer = (function() {
 			 * 200px;"' + 'data-mce-selected="1"></iframe>');
 			 */
 
-			appendedDom = $('<video preload="true" style="border: solid 1px;" controls="controls">'
+			appendedDom = $('<video preload="true" style="border: solid 1px;" controls="controls" height="100%" width="100%">'
 					+ '<source src="'
 					+ fileSrc
 					+ '" type="video/'
@@ -117,11 +123,43 @@ var mediaContainer = (function() {
 					+ 'Your browser does not support the video tag.'
 					+ '</video>');
 
-		} else {
+		} else if (fileType == 'other') {
+			// This condition is in bad place I think.
+			if (ev.target.id == 'dragBoard') {
+				
+				$(ev.target).html(
+						'<img src="' + appRootPath + '/img/ajax-loader-wt.gif"/>');
+
+						
+				$.post(appRootPath + '/MediaContainer/ReadFileContent', {filename : fileSrc}, function(data) {
+					
+					codeEditor.dragBoard.empty();
+					
+					var appendedDom = $('<textarea id="dragBoardCode">' + data.fileContent + '</textarea>');
+					
+					$("#dragBoard")[0].appendChild($(appendedDom).get()[0]);
+					
+					// Editor instance.
+					var myCodeMirror = CodeMirror.fromTextArea($("#dragBoardCode").get()[0], {
+						value : 'public static void main(String[] args){\nSystem.out.println("Hello World");\n}',
+						lineWrapping : true,
+						lineNumbers : true,
+						mode : "text/x-java",
+						
+					});
+				}, 'json');
+				
+				added = true; //this can be done better
+			}
+			
+		} 
+		else {
 			console.log('Invalid drag/drop');
 		}
-
-		ev.target.appendChild($(appendedDom).get()[0]);
+		
+		if (!added)
+			 ev.target.appendChild($(appendedDom).get()[0]);
+		
 		setTimeout(function() {
 			$(ev.target).find('.mceItemVideo').die().live('dblclick',
 					function(e) {
@@ -492,13 +530,13 @@ var mediaContainer = (function() {
 			return;
 
 		$(filteredList).filter(function(index) {
-			var result = $(this).attr('title').indexOf(keyword) >= 0;
+			var result = $(this).find('li').attr('title').indexOf(keyword) >= 0;
 			return !result;
 		}).addClass('hidden');
 	}
 
 	// return 'image' / 'video' / 'other'.
-	function getFileType(fileSrc) {
+	mediaContainer.getFileType = function getFileType(fileSrc) {
 		var ext = fileSrc.substring(fileSrc.lastIndexOf('.') + 1,
 				fileSrc.length);
 		if (/(jpg|png|jpeg|tiff|gif|bmp)/gi.test(ext))

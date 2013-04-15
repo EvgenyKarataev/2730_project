@@ -21,7 +21,20 @@ $(function() {
 		codeEditor.runtimeSelect = $('#languageSelect');
 		codeEditor.savePanel = $('#savePanel');
 		codeEditor.outputPanel = $('#outputPanel');
+		
+		codeEditor.dragBoard = $('#dragBoard');
 
+		codeEditor.dragBoard.bind('dragover', function (ev) { 
+			ev.preventDefault(); 
+		});
+		
+		codeEditor.dragBoard.bind('drop', function (ev) { ev.preventDefault();
+			codeEditor.dragBoard.empty();
+			ev.target = codeEditor.dragBoard[0];
+			mediaContainer.fileItemDropEventHandler(ev);
+		});
+	
+		
 		/* private variables */
 		var isRunningCode = false;
 
@@ -32,7 +45,24 @@ $(function() {
 					value : 'public static void main(String[] args){\nSystem.out.println("Hello World");\n}',
 					lineWrapping : true,
 					lineNumbers : true,
-					mode : "text/x-java"
+					mode : "text/x-java",
+					dragDrop : true,
+					onDragEvent : function (codeMirror, ev) {
+						console.log(ev.type);
+						
+						if (ev.type == "dragover") {
+						    ev.preventDefault(); 
+						}
+						else if (ev.type == "drop") {
+							
+							var fileSrc = ev.dataTransfer.getData("fileSrc");
+														
+							if (mediaContainer.getFileType(fileSrc) == "other")
+								mediaContainer.fileItemDropEventHandler(ev);
+						}
+						
+						return true;
+					}
 				});
 
 		/* public functions */
@@ -46,6 +76,16 @@ $(function() {
 				line : totalLines - 1
 			});
 		};
+		
+//		$(myCodeMirror).bind('dragover', function (ev) { 
+//			ev.preventDefault(); 
+//		});
+		
+//		$(myCodeMirror).bind('drop', function (ev) { ev.preventDefault();
+//	//	codeEditor.dragBoard.empty();
+//	//	ev.target = codeEditor.dragBoard[0];
+//		mediaContainer.fileItemDropEventHandler(ev);
+//	});
 
 		/* helper functions */
 
