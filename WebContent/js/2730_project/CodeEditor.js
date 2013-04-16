@@ -39,7 +39,7 @@ $(function() {
 		var isRunningCode = false;
 
 		// Editor instance.
-		var myCodeMirror = CodeMirror(
+		codeEditor.myCodeMirror = CodeMirror(
 				codeEditor.middleCP.get(0),
 				{
 					value : 'public static void main(String[] args){\nSystem.out.println("Hello World");\n}',

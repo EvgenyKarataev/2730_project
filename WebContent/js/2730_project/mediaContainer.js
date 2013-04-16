@@ -125,32 +125,44 @@ var mediaContainer = (function() {
 
 		} else if (fileType == 'other') {
 			// This condition is in bad place I think.
-			if (ev.target.id == 'dragBoard') {
-				
-				$(ev.target).html(
-						'<img src="' + appRootPath + '/img/ajax-loader-wt.gif"/>');
+			
+//				var target = $(ev.currentTarget)[0];
+//				
+//				$(ev.currentTarget).html(
+//						'<img id="loadingMainCodeEditor" src="' + appRootPath + '/img/ajax-loader-wt.gif"/>');
 
 						
 				$.post(appRootPath + '/MediaContainer/ReadFileContent', {filename : fileSrc}, function(data) {
 					
-					codeEditor.dragBoard.empty();
-					
-					var appendedDom = $('<textarea id="dragBoardCode">' + data.fileContent + '</textarea>');
-					
-					$("#dragBoard")[0].appendChild($(appendedDom).get()[0]);
-					
-					// Editor instance.
-					var myCodeMirror = CodeMirror.fromTextArea($("#dragBoardCode").get()[0], {
-						value : 'public static void main(String[] args){\nSystem.out.println("Hello World");\n}',
-						lineWrapping : true,
-						lineNumbers : true,
-						mode : "text/x-java",
+					if ($(ev.target)[0].id == 'dragBoard') {
+						codeEditor.dragBoard.empty();
 						
-					});
+						var appendedDom = $('<textarea id="dragBoardCode">' + data.fileContent + '</textarea>');
+						
+						$("#dragBoard")[0].appendChild($(appendedDom).get()[0]);
+						
+						
+						// Editor instance.
+						var myCodeMirror = CodeMirror.fromTextArea($("#dragBoardCode").get()[0], {
+							value : 'public static void main(String[] args){\nSystem.out.println("Hello World");\n}',
+							lineWrapping : true,
+							lineNumbers : true,
+							mode : "text/x-java",
+							
+						});
+					}
+					else {
+						
+						codeEditor.myCodeMirror.setValue(data.fileContent);
+						//$("#loadingMainCodeEditor").html($(codeEditor).html())
+					}
+					
+					
 				}, 'json');
 				
+				
 				added = true; //this can be done better
-			}
+			
 			
 		} 
 		else {
